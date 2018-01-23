@@ -1,0 +1,15 @@
+<h1><%= @usuario.nome %> <%= @usuario.sobrenome %> </h1>
+<p> Nome: <%= @usuario.nome %></p>
+
+<p> Sobrenome: <%= @usuario.sobrenome %></p>
+
+<p> Telefone: <%= @usuario.telefone %></p>
+
+<p> Email: <%= @usuario.email %></p>
+
+<p> Data de nascimento: <%= @usuario.data_nascimento %></p>
+<br>
+
+<%= link_to "Todos os usuários", index_usuarios_path %>
+<%= link_to "Editar", edit_usuario_path(id: @usuario.id) %>
+<%= link_to "Excluir", destroy_usuario_path(id: @usuario.id), method: :delete %>
