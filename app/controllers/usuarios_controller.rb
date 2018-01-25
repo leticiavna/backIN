@@ -1,7 +1,7 @@
 class UsuariosController < ApplicationController
 
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  before_action :usuario_nao_logado, except: [:new, :create]
+  before_action :usuario_nao_logado, except: [:new, :create, :buscacidades]
   before_action :usuario_logado, only: [:new, :create]  
   before_action :usuario_correto, only: [:edit, :update]
   before_action :usuario_correto_ou_admin, only: :destroy
@@ -9,9 +9,21 @@ class UsuariosController < ApplicationController
   #acoes http: sao public
   #metodos usados apenas pelo controller sao private; nao serao usados em outra coisa
 
-  # GET usuarios/novo
-  def new
-  	@usuario = Usuario.new
+  #PATCH buscacidades
+  def buscacidades
+    estado = Estado.find_by(id: params[:estado])
+    cidades = estado.cidades if estado
+
+    @result = []
+    if cidades
+      cidades.each do |cidade|
+        @result.append cidade
+      end
+    end
+
+    respond_to do |format|
+      format.json { render json: @result }
+    end
   end
 
   #POST usuarios/novo
@@ -70,7 +82,7 @@ class UsuariosController < ApplicationController
   #boa pratica de seguranca
   def usuario_params
   	params.require(:usuario).permit(:nome, :sobrenome, :email, :telefone, 
-      :data_nascimento, :password, :password_confirmation, :avatar)
+      :data_nascimento, :password, :password_confirmation, :avatar, :cidade_id)
   end
 
   def usuario_correto

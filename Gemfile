@@ -5,7 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-## Gemfile for Rails 3+, Sinatra, and Merb
+#geracao automatica de senhas
+gem "passgen"
+
+#Redimensionamento de imagem
+gem "mini_magick"
+
+#Gem biblioteca javascript Jquery
+gem 'jquery-rails', '~> 4.3'
+
+# Gemfile for Rails 3+, Sinatra, and Merb
 gem 'will_paginate', '~> 3.1.0'
 
 # gem para importação de arquivos para o sistemas
